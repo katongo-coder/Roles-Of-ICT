@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICT Quiz: Roles of ICT in Society</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f0fdf4; overflow-x: hidden; }
+        .container-box { max-width: 850px; }
+        .option-btn { transition: all 0.2s; cursor: pointer; border-width: 2px; }
+        .selected { border-color: #16a34a !important; background-color: #f0fdf4 !important; }
+
+        @keyframes scrollText { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .scrolling-container {
+            width: 100%; overflow: hidden; background: #16a34a; color: white;
+            padding: 10px 0; white-space: nowrap; position: fixed; top: 0; left: 0; z-index: 50;
+        }
+        .scrolling-text { display: inline-block; font-weight: 800; text-transform: uppercase; animation: scrollText 20s linear infinite; }
+
+        @keyframes rotateTitle { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .rotating-section { display: flex; justify-content: center; margin-top: 3rem; margin-bottom: 2rem; }
+        .rotating-text { display: inline-block; animation: rotateTitle 15s linear infinite; transform-origin: center; }
+    </style>
+</head>
+<body class="p-4 pt-24 md:p-8 md:pt-28 flex justify-center min-h-screen">
+
+    <div class="scrolling-container">
+        <div class="scrolling-text">
+            Roles of ICT Quiz • Prepared By Mr. Katongo • Education, Business, Banking & Health • Prepared By Mr. Katongo
+        </div>
+    </div>
+
+    <div class="container-box w-full">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-black text-green-800 mb-2">Roles of ICT in Society</h1>
+            <p class="text-gray-600 font-bold">How technology transforms our daily professional lives.</p>
+        </header>
+
+        <div id="loginSection" class="bg-white p-8 rounded-2xl shadow-2xl border border-green-100">
+            <h2 class="text-xl font-bold text-green-700 mb-4">Learner Registration</h2>
+            <div class="grid grid-cols-1 gap-4">
+                <input type="text" id="stuName" placeholder="Full Name" class="p-3 border rounded-xl outline-none focus:ring-2 focus:ring-green-500">
+                <input type="text" id="stuId" placeholder="Student ID" class="p-3 border rounded-xl outline-none focus:ring-2 focus:ring-green-500">
+                <button id="startBtn" class="bg-green-600 text-white font-black py-4 rounded-xl hover:bg-green-700 disabled:opacity-50" disabled>BEGIN ASSESSMENT</button>
+            </div>
+        </div>
+
+        <div id="quizSection" class="hidden">
+            <div class="flex justify-between items-center mb-4 px-2">
+                <span id="timer" class="font-black text-green-700 text-lg">00:00</span>
+                <span id="progress" class="font-bold text-gray-500"></span>
+            </div>
+            
+            <div class="bg-white p-8 rounded-2xl shadow-2xl border border-green-100 mb-6">
+                <h2 id="questionText" class="text-2xl font-bold text-slate-800 mb-8 leading-tight"></h2>
+                <div id="optionsGrid" class="grid grid-cols-1 gap-4"></div>
+            </div>
+            
+            <div class="flex justify-between items-center">
+                <p id="hintBox" class="text-sm italic text-green-600 font-medium"></p>
+                <button id="nextBtn" class="bg-green-600 text-white px-10 py-3 rounded-full font-black shadow-lg disabled:opacity-30" disabled>NEXT</button>
+            </div>
+        </div>
+
+        <div id="resultSection" class="hidden space-y-8">
+            <div class="bg-white p-10 rounded-2xl shadow-2xl text-center border-b-8 border-green-500">
+                <h2 class="text-3xl font-black text-slate-800">PERFORMANCE SUMMARY</h2>
+                <div class="my-6 p-8 bg-green-50 rounded-3xl">
+                    <p class="text-8xl font-black text-green-600"><span id="finalScore"></span>%</p>
+                    <p id="grade" class="font-bold text-2xl uppercase mt-2"></p>
+                </div>
+                <button onclick="location.reload()" class="bg-slate-800 text-white px-12 py-4 rounded-xl font-bold hover:bg-black">RESTART</button>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-xl border border-green-100">
+                <h3 class="text-2xl font-black text-slate-800 mb-6 border-b pb-4">Detailed Review</h3>
+                <div id="reviewList" class="space-y-6"></div>
+            </div>
+        </div>
+
+        <footer class="rotating-section">
+            <div class="rotating-text bg-white px-8 py-4 rounded-full shadow-lg border-2 border-green-100 font-black text-green-700">
+                Prepared By Mr. Katongo
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const QUESTIONS = [
+            {
+                q: "In Banking, what is the primary role of an ATM (Automated Teller Machine)?",
+                options: ["To print medical reports", "To allow 24/7 cash withdrawals without a teller", "To design airplane tickets", "To store physical documents"],
+                correct: "To allow 24/7 cash withdrawals without a teller",
+                hint: "Think about banking convenience outside of office hours.",
+                rationale: "ATMs provide self-service banking, reducing the need for customers to visit a bank hall for basic transactions like withdrawals."
+            },
+            {
+                q: "How do teachers primarily use ICT to enhance learning?",
+                options: ["By playing games during class", "By using Interactive Whiteboards and digital resources", "By manually calculating grades only", "By replacing all human interaction"],
+                correct: "By using Interactive Whiteboards and digital resources",
+                hint: "Focus on modern classroom tools.",
+                rationale: "Digital tools help teachers present complex concepts visually and share resources more efficiently."
+            },
+            {
+                q: "Which ICT application is used in Business for reaching a global audience?",
+                options: ["Calculators", "Electronic Advertising and E-commerce", "Punched cards", "Magnetic Drums"],
+                correct: "Electronic Advertising and E-commerce",
+                hint: "Think about online shopping and social media ads.",
+                rationale: "E-commerce allows businesses to sell products worldwide, while digital ads target specific customer groups."
+            },
+            {
+                q: "In the Health sector, what is 'Telemedicine'?",
+                options: ["Buying medicine from a shop", "Remote medical consultation via ICT", "Manufacturing hospital beds", "Cleaning hospital equipment"],
+                correct: "Remote medical consultation via ICT",
+                hint: "Consulting a doctor without being in the same room.",
+                rationale: "Telemedicine allows doctors to diagnose and treat patients in remote areas using video conferencing and data sharing."
+            },
+            {
+                q: "How does ICT benefit a 'Learner' specifically?",
+                options: ["It makes studying longer", "It provides access to a vast library of online information", "It prevents the need for exams", "It increases the weight of school bags"],
+                correct: "It provides access to a vast library of online information",
+                hint: "Think about Google, YouTube, and digital libraries.",
+                rationale: "Learners can research any topic instantly, allowing for personalized and self-paced learning."
+            },
+            {
+                q: "Which of these is a role of ICT in modern Banking security?",
+                options: ["Handwritten ledgers", "Biometric authentication (Fingerprints/Face ID)", "Physical padlocks on computers", "Hiding money in the server room"],
+                correct: "Biometric authentication (Fingerprints/Face ID)",
+                hint: "Think about how you unlock a banking app.",
+                rationale: "Biometrics provide a unique and secure way to verify identity, much safer than simple passwords."
+            },
+            {
+                q: "In Business, what does 'CAD' stand for in Science and Engineering?",
+                options: ["Computer Aided Design", "Calculate All Data", "Central Access Device", "Complex Analog Digital"],
+                correct: "Computer Aided Design",
+                hint: "Used by architects and engineers to draw plans.",
+                rationale: "CAD software is used to create precise 2D and 3D drawings for manufacturing and construction."
+            }
+        ];
+
+        let cur = 0, score = 0, timerVal = 0, timerInt, history = [];
+        const loginS = document.getElementById('loginSection'), quizS = document.getElementById('quizSection'), resS = document.getElementById('resultSection');
+        const startB = document.getElementById('startBtn'), stuN = document.getElementById('stuName'), stuI = document.getElementById('stuId');
+
+        function validate() { startB.disabled = !(stuN.value.trim() && stuI.value.trim()); }
+        stuN.oninput = validate; stuI.oninput = validate;
+
+        startB.onclick = () => {
+            loginS.classList.add('hidden');
+            quizS.classList.remove('hidden');
+            startTimer();
+            showQuestion();
+        };
+
+        function startTimer() {
+            timerInt = setInterval(() => {
+                timerVal++;
+                let m = Math.floor(timerVal/60).toString().padStart(2,'0'), s = (timerVal%60).toString().padStart(2,'0');
+                document.getElementById('timer').innerText = `${m}:${s}`;
+            }, 1000);
+        }
+
+        function showQuestion() {
+            const qData = QUESTIONS[cur];
+            document.getElementById('nextBtn').disabled = true;
+            document.getElementById('progress').innerText = `QUESTION ${cur + 1} OF ${QUESTIONS.length}`;
+            document.getElementById('questionText').innerText = qData.q;
+            document.getElementById('hintBox').innerText = `Hint: ${qData.hint}`;
+            
+            const grid = document.getElementById('optionsGrid');
+            grid.innerHTML = '';
+            qData.options.sort(() => Math.random() - 0.5).forEach(opt => {
+                const b = document.createElement('div');
+                b.className = "option-btn p-5 bg-white rounded-2xl font-bold text-slate-700 border-2 border-slate-100 hover:border-green-300";
+                b.innerText = opt;
+                b.onclick = () => {
+                    Array.from(grid.children).forEach(c => c.classList.remove('selected'));
+                    b.classList.add('selected');
+                    document.getElementById('nextBtn').disabled = false;
+                };
+                grid.appendChild(b);
+            });
+        }
+
+        document.getElementById('nextBtn').onclick = () => {
+            const sel = document.querySelector('.selected').innerText;
+            const q = QUESTIONS[cur];
+            const isCorrect = (sel === q.correct);
+            if(isCorrect) score++;
+            history.push({ q: q.q, user: sel, correct: q.correct, rationale: q.rationale, isCorrect });
+
+            cur++;
+            if(cur < QUESTIONS.length) showQuestion(); else endQuiz();
+        };
+
+        function endQuiz() {
+            clearInterval(timerInt);
+            quizS.classList.add('hidden');
+            resS.classList.remove('hidden');
+            const pct = Math.round((score/QUESTIONS.length)*100);
+            document.getElementById('finalScore').innerText = pct;
+            document.getElementById('grade').innerText = pct >= 50 ? "PASSED" : "RETAKE REQUIRED";
+            document.getElementById('grade').className = pct >= 50 ? "font-bold text-2xl uppercase mt-2 text-green-600" : "font-bold text-2xl uppercase mt-2 text-red-600";
+            
+            const list = document.getElementById('reviewList');
+            history.forEach((h, i) => {
+                const d = document.createElement('div');
+                d.className = `p-6 rounded-2xl border-l-8 ${h.isCorrect ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50'}`;
+                d.innerHTML = `
+                    <p class="font-black text-slate-800">${i+1}. ${h.q}</p>
+                    <p class="text-sm mt-2"><b>Your Choice:</b> ${h.user} ${h.isCorrect ? '✅' : '❌'}</p>
+                    ${!h.isCorrect ? `<p class="text-sm text-green-700"><b>Correct Answer:</b> ${h.correct}</p>` : ''}
+                    <div class="mt-4 p-4 bg-white/70 rounded-xl text-xs text-slate-600 border border-slate-200">
+                        <b class="text-green-700 uppercase">Mr. Katongo's Rationale:</b><br>${h.rationale}
+                    </div>
+                `;
+                list.appendChild(d);
+            });
+        }
+    </script>
+</body>
+</html>
