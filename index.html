@@ -3,28 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICT Quiz: Roles of ICT in Society</title>
+    <title>Roles of ICT - Mr. Katongo Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; overflow-x: hidden; }
-        .container-box { max-width: 900px; }
-        .option-btn { transition: all 0.2s; cursor: pointer; border-width: 2px; }
-        .selected { border-color: #4f46e5 !important; background-color: #f5f3ff !important; }
-
+        
         @keyframes scrollText { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
         .scrolling-container {
             width: 100%; overflow: hidden; background: #4f46e5; color: white;
-            padding: 10px 0; white-space: nowrap; position: fixed; top: 0; left: 0; z-index: 50;
+            padding: 12px 0; white-space: nowrap; position: fixed; top: 0; left: 0; z-index: 50;
         }
         .scrolling-text { display: inline-block; font-weight: 800; text-transform: uppercase; animation: scrollText 20s linear infinite; }
 
         @keyframes rotateTitle { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .rotating-section { display: flex; justify-content: center; margin-top: 3rem; margin-bottom: 2rem; }
         .rotating-text { display: inline-block; animation: rotateTitle 15s linear infinite; transform-origin: center; }
+        
+        .selected { border-color: #4f46e5 !important; background-color: #f5f3ff !important; }
     </style>
 </head>
-<body class="p-4 pt-24 md:p-8 md:pt-28 flex justify-center min-h-screen">
+<body class="p-4 pt-24 flex justify-center min-h-screen">
 
     <div class="scrolling-container">
         <div class="scrolling-text">
@@ -32,68 +31,72 @@
         </div>
     </div>
 
-    <div class="container-box w-full">
-        <header class="text-center mb-10">
-            <h1 class="text-4xl font-black text-indigo-900 mb-2 uppercase tracking-tight">ICT Roles & Applications</h1>
-            
-            <p class="text-slate-600 font-bold">FORM 1 ROLES OF ICT</p>
-            <p class="text-slate-600 font-bold">Comprehensive Assessment for Form 1 ICT Students</p>
-        </header>
-
-        <div id="loginSection" class="bg-white p-8 rounded-3xl shadow-2xl border border-indigo-100">
-            <h2 class="text-xl font-bold text-indigo-800 mb-6 flex items-center gap-2">
-                <span class="bg-indigo-100 p-2 rounded-lg text-sm">👤</span> Student Information
-            </h2>
-            <div class="grid grid-cols-1 gap-4">
-                <input type="text" id="stuName" placeholder="Enter Full Name" class="p-4 border rounded-2xl outline-none focus:ring-4 focus:ring-indigo-100 transition">
-                <input type="text" id="stuId" placeholder="Enter Student ID" class="p-4 border rounded-2xl outline-none focus:ring-4 focus:ring-indigo-100 transition">
-                <button id="startBtn" class="bg-indigo-600 text-white font-black py-5 rounded-2xl hover:bg-indigo-700 disabled:opacity-50 transition-all shadow-lg" disabled>START QUIZ</button>
+    <div class="max-w-4xl w-full">
+        <div id="loginSection" class="bg-white p-10 rounded-[40px] shadow-2xl border border-indigo-50">
+            <h2 class="text-2xl font-black text-indigo-900 mb-6 uppercase tracking-tight">Student Registration</h2>
+            <div class="space-y-4">
+                <input type="text" id="stuName" placeholder="Full Name" class="w-full p-4 border rounded-2xl outline-none focus:ring-4 focus:ring-indigo-100 transition">
+                <input type="text" id="stuId" placeholder="Student ID Number" class="w-full p-4 border rounded-2xl outline-none focus:ring-4 focus:ring-indigo-100 transition">
+                <button id="startBtn" class="w-full bg-indigo-600 text-white font-black py-5 rounded-2xl shadow-lg hover:bg-indigo-700 disabled:opacity-30 transition-all uppercase" disabled>Start Assessment</button>
             </div>
         </div>
 
         <div id="quizSection" class="hidden">
-            <div class="flex justify-between items-center mb-6 px-2">
-                <div class="flex items-center gap-2 bg-indigo-50 px-4 py-2 rounded-full border border-indigo-100">
-                    <span class="text-indigo-600 text-xl">⏱</span>
-                    <span id="timer" class="font-black text-indigo-800 text-lg">00:00</span>
+            <div class="flex justify-between items-center mb-6 px-4">
+                <div class="bg-indigo-50 px-4 py-2 rounded-full border border-indigo-100">
+                    <span id="timerDisplay" class="font-black text-indigo-700">00:00</span>
                 </div>
-                <span id="progress" class="font-bold text-slate-500 uppercase tracking-widest text-sm"></span>
+                <span id="progressText" class="font-bold text-slate-400 text-sm uppercase"></span>
             </div>
-            
-            <div class="bg-white p-10 rounded-3xl shadow-2xl border border-indigo-50 mb-8">
-                <h2 id="questionText" class="text-2xl font-bold text-slate-800 mb-10 leading-tight"></h2>
+
+            <div class="bg-white p-10 rounded-[40px] shadow-2xl border border-indigo-50 mb-8">
+                <h2 id="qText" class="text-2xl font-bold text-slate-800 mb-8 leading-tight"></h2>
                 <div id="optionsGrid" class="grid grid-cols-1 gap-4"></div>
             </div>
-            
+
             <div class="flex justify-end">
-                <button id="nextBtn" class="bg-indigo-600 text-white px-14 py-4 rounded-2xl font-black shadow-xl disabled:opacity-30 hover:scale-105 transition" disabled>NEXT QUESTION</button>
+                <button id="nextBtn" class="bg-indigo-600 text-white px-12 py-4 rounded-2xl font-black shadow-xl disabled:opacity-20 transition uppercase" disabled>Next Question</button>
             </div>
         </div>
 
-        <div id="resultSection" class="hidden space-y-10">
-            <div class="bg-white p-12 rounded-3xl shadow-2xl text-center border-b-[12px] border-indigo-600">
-                <h2 class="text-3xl font-black text-slate-800 mb-2">FINAL SCORE</h2>
-                <div class="my-8 p-10 bg-indigo-50 rounded-[40px] inline-block min-w-[200px]">
-                    <p class="text-8xl font-black text-indigo-600"><span id="finalScore"></span>%</p>
-                    <p id="grade" class="font-bold text-2xl uppercase mt-4 tracking-tighter"></p>
+        <div id="resultSection" class="hidden space-y-8">
+            <div class="bg-white p-10 rounded-[40px] shadow-2xl border-b-[12px] border-indigo-600">
+                <h2 class="text-3xl font-black text-slate-800 text-center uppercase mb-6">Official Report Card</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 bg-slate-50 p-8 rounded-3xl">
+                    <div class="space-y-2">
+                        <p class="text-sm text-slate-500 font-bold uppercase tracking-widest">Student Details</p>
+                        <p class="text-lg font-black text-slate-800" id="resNameDisplay"></p>
+                        <p class="text-sm font-bold text-slate-500">ID: <span id="resIdDisplay"></span></p>
+                    </div>
+                    <div class="space-y-2 md:text-right border-t md:border-t-0 md:border-l pt-4 md:pt-0 md:pl-6">
+                        <p class="text-sm text-slate-500 font-bold uppercase tracking-widest">Attempt Info</p>
+                        <p class="text-lg font-black text-indigo-600">Attempt No: <span id="resAttempt"></span></p>
+                        <p class="text-sm font-bold text-slate-500">Time Elapsed: <span id="resTime"></span></p>
+                    </div>
                 </div>
-                <div class="mt-4 mb-8">
-                    <p class="text-slate-500 font-medium">Student: <span id="resName" class="font-bold text-slate-800"></span></p>
-                    <p class="text-slate-500 font-medium">ID: <span id="resId" class="font-bold text-slate-800"></span></p>
+
+                <div class="flex flex-col items-center py-6">
+                    <div class="text-center">
+                        <p class="text-7xl font-black text-indigo-600"><span id="finalPercent"></span>%</p>
+                        <p class="text-2xl font-black text-slate-700 mt-2">Score: <span id="rawScore"></span></p>
+                    </div>
+                    <p id="passFail" class="mt-6 px-10 py-3 rounded-full font-black text-xl uppercase tracking-widest"></p>
                 </div>
-                <button onclick="location.reload()" class="bg-slate-800 text-white px-16 py-5 rounded-2xl font-black hover:bg-black transition shadow-lg">RETAKE ASSESSMENT</button>
+
+                <div class="flex justify-center mt-8">
+                    <button onclick="restartQuiz()" class="bg-slate-800 text-white px-16 py-4 rounded-2xl font-black hover:bg-black transition shadow-lg uppercase">Retake Quiz</button>
+                </div>
             </div>
 
-            <div class="bg-white p-10 rounded-3xl shadow-xl border border-indigo-50">
-                <h3 class="text-2xl font-black text-slate-800 mb-8 flex items-center gap-3">
-                    <span class="bg-indigo-100 p-2 rounded-lg text-lg">📖</span> Performance Review
-                </h3>
-                <div id="reviewList" class="space-y-8"></div>
+            <div class="bg-white p-10 rounded-[40px] shadow-xl border border-indigo-50">
+                <h3 class="text-2xl font-black text-slate-800 mb-8 border-b pb-4">Performance Review</h3>
+                <div id="reviewList" class="space-y-6"></div>
             </div>
         </div>
 
         <footer class="rotating-section">
-            <div class="rotating-text bg-white px-10 py-5 rounded-full shadow-xl border-4 border-indigo-50 font-black text-indigo-700 uppercase tracking-widest text-sm">
+            <div class="rotating-text bg-white px-10 py-5 rounded-full shadow-lg border-2 border-indigo-50 font-black text-indigo-700 uppercase text-xs tracking-widest">
                 Prepared By Mr. Katongo
             </div>
         </footer>
@@ -101,163 +104,64 @@
 
     <script>
         const QUESTIONS = [
-            {
-                q: "What is the primary role of an ATM in modern banking?",
-                options: ["Printing physical medical reports", "Providing 24/7 cash withdrawal services", "Designing complex aircraft routes", "Managing office stationery"],
-                correct: "Providing 24/7 cash withdrawal services",
-                rationale: "ATMs (Automated Teller Machines) allow customers to perform bank transactions, like deposits and withdrawals, at any time without visiting a physical bank counter."
-            },
-            {
-                q: "How does ICT assist teachers in the classroom?",
-                options: ["Replacing all student-teacher interactions", "Using interactive whiteboards and digital resources", "Calculating grades using manual ledgers only", "Playing video games during study time"],
-                correct: "Using interactive whiteboards and digital resources",
-                rationale: "ICT tools like smart boards and educational apps enhance the teaching and learning experience by making lessons more interactive[cite: 239, 241]."
-            },
-            {
-                q: "Which application of ICT allows businesses to sell products to a global audience?",
-                options: ["Pocket calculators", "Electronic advertising and E-commerce", "Manual typewriters", "Punched cards"],
-                correct: "Electronic advertising and E-commerce",
-                rationale: "E-commerce and digital marketing allow businesses to reach customers worldwide and conduct transactions online."
-            },
-            {
-                q: "What is 'Telemedicine' in the health sector?",
-                options: ["Buying medicine from a pharmacy", "Remote medical consultation via ICT", "Manufacturing surgical tools", "Cleaning hospital wards"],
-                correct: "Remote medical consultation via ICT",
-                rationale: "Telemedicine uses video calls and data sharing to allow patients to receive medical advice from doctors remotely[cite: 253, 255]."
-            },
-            {
-                q: "How does ICT benefit a learner in their daily studies?",
-                options: ["Making school bags heavier", "Providing access to a vast library of online resources", "Canceling all final examinations", "Preventing interaction with other pupils"],
-                correct: "Providing access to a vast library of online resources",
-                rationale: "The internet offers learners access to ebooks, research materials, and online courses, aiding independent study[cite: 216, 237]."
-            },
-            {
-                q: "Which security measure is used in banks to verify identity using physical traits?",
-                options: ["Advanced Biometric Authentication", "Handwritten signatures only", "Metal padlocks on keyboards", "Magnetic drums"],
-                correct: "Advanced Biometric Authentication",
-                rationale: "Biometrics like fingerprints and face ID provide a secure way to protect sensitive customer data and prevent fraud."
-            },
-            {
-                q: "What does 'CAD' stand for in Business and Engineering?",
-                options: ["Computer Aided Design", "Calculate All Data", "Central Access Device", "Complex Analog Digital"],
-                correct: "Computer Aided Design",
-                rationale: "CAD is used by engineers and architects to create precise 2D and 3D designs for products and buildings[cite: 201]."
-            },
-            {
-                q: "In a supermarket, what computer system reads patterns like bar codes and QR codes?",
-                options: ["Mainframe systems", "Point of Sale (POS) / Checkout system", "Supercomputers", "Analog thermometers"],
-                correct: "Point of Sale (POS) / Checkout system",
-                rationale: "A POS cash register identifies items via codes and sends purchase data to a central office computer[cite: 204, 205]."
-            },
-            {
-                q: "Which ICT device is specifically used in banking for processing checks?",
-                options: ["OCR (Optical Character Reader)", "MICR (Magnetic Ink Character Reader)", "Joystick", "Graphics Tablet"],
-                correct: "MICR (Magnetic Ink Character Reader)",
-                rationale: "MICR reads the magnetic ink characters on checks, making check processing in banks efficient and accurate."
-            },
-            {
-                q: "Which of these is a platform used for remote E-learning?",
-                options: ["Google Classroom", "Microsoft Paint", "VLC Media Player", "NotePad"],
-                correct: "Google Classroom",
-                rationale: "E-learning platforms like Google Classroom enable teachers to manage classes and students to learn remotely[cite: 238, 291]."
-            },
-            {
-                q: "In Science, why do researchers use ICT for 'Simulation'?",
-                options: ["To play games", "To model complex phenomena and save resources", "To replace real scientists", "To print posters"],
-                correct: "To model complex phenomena and save resources",
-                rationale: "Simulation allows scientists to test experiments in a digital environment, saving time and costs while improving safety."
-            },
-            {
-                q: "How does ICT improve 'Automation' in a business environment?",
-                options: ["Increasing manual labor", "Reducing repetitive tasks like data entry", "Making errors more common", "Replacing all employees immediately"],
-                correct: "Reducing repetitive tasks like data entry",
-                rationale: "Automation reduces manual labor in repetitive tasks like bookkeeping, increasing overall efficiency[cite: 244, 245]."
-            },
-            {
-                q: "How does ICT promote transparency in Government operations?",
-                options: ["By hiding public data", "By providing citizen access via online portals", "By using secret passwords only", "By deleting all digital records"],
-                correct: "By providing citizen access via online portals",
-                rationale: "E-government portals allow citizens to access information and interact with agencies, fostering trust and accountability[cite: 277]."
-            },
-            {
-                q: "What is a major benefit of Mobile Communication in society?",
-                options: ["Ensuring connectivity anytime and anywhere", "Increasing the cost of travel", "Making devices harder to use", "Limiting social interaction"],
-                correct: "Ensuring connectivity anytime and anywhere",
-                rationale: "Mobile internet growth allows access to emails and social media on the move via smartphones[cite: 221]."
-            },
-            {
-                q: "What technology allows voice signals to be transmitted over the internet at a low cost?",
-                options: ["PSTN (Landline)", "VoIP (Voice over Internet Protocol)", "Fax machines", "Radio waves"],
-                correct: "VoIP (Voice over Internet Protocol)",
-                rationale: "VoIP converts voice into digital data, significantly reducing costs for long-distance calls[cite: 219, 233]."
-            },
-            {
-                q: "In Healthcare, what is 'Remote Monitoring'?",
-                options: ["Watching TV in a hospital", "Checking a patient's health (e.g., heart rate) from home", "Cleaning surgery tools remotely", "Selling medicines online"],
-                correct: "Checking a patient's health (e.g., heart rate) from home",
-                rationale: "ICT devices can monitor patient vitals remotely and send the data directly to doctors for analysis."
-            },
-            {
-                q: "Which ICT application is essential for high-quality Multimedia Production in entertainment?",
-                options: ["Spreadsheet software", "Video editing and animation special effects", "Word processors", "Database management systems"],
-                correct: "Video editing and animation special effects",
-                rationale: "ICT supports the creation of special effects and high-quality editing in movies and music videos[cite: 260]."
-            },
-            {
-                q: "How does Cloud Computing benefit a business with remote workers?",
-                options: ["By requiring everyone to be in one office", "By allowing data access from any location", "By deleting files after 24 hours", "By increasing physical hardware costs"],
-                correct: "By allowing data access from any location",
-                rationale: "Cloud storage enables employees to collaborate and access business data remotely regardless of where they are[cite: 248]."
-            },
-            {
-                q: "What administrative task can ICT automate in a school?",
-                options: ["Grading systems and class scheduling", "Cleaning of classrooms", "Repairing student desks", "Manual filing of paper notes"],
-                correct: "Grading systems and class scheduling",
-                rationale: "ICT systems help school management by automating administrative tasks like grading and record management."
-            },
-            {
-                q: "What is 'Unified Communications' in a business setting?",
-                options: ["Integrating tools like telephony, email, and video calls", "Using only one type of computer", "Hiring only one IT expert", "Sending only physical mail"],
-                correct: "Integrating tools like telephony, email, and video calls",
-                rationale: "Unified platforms integrate various communication tools into one system for better collaboration and efficiency[cite: 223, 234]."
-            }
+            { q: "What is the primary role of an ATM in modern banking?", options: ["Printing medical reports", "Providing 24/7 cash withdrawal", "Designing aircraft routes", "Office stationery"], correct: "Providing 24/7 cash withdrawal", rationale: "ATMs provide self-service banking at any time." },
+            { q: "How do teachers use ICT to enhance learning?", options: ["Manual grading only", "Interactive whiteboards and digital resources", "Replacing human interaction", "Playing games in class"], correct: "Interactive whiteboards and digital resources", rationale: "Digital tools make lessons more visual and interactive." },
+            { q: "Which application allows businesses to reach a global audience?", options: ["Pocket calculators", "E-commerce and Electronic advertising", "Typewriters", "Punched cards"], correct: "E-commerce and Electronic advertising", rationale: "The internet connects businesses to customers worldwide." },
+            { q: "What is 'Telemedicine'?", options: ["Buying medicine", "Remote medical consultation via ICT", "Manufacturing tools", "Cleaning wards"], correct: "Remote medical consultation via ICT", rationale: "Telemedicine uses video/data to treat patients remotely." },
+            { q: "ICT benefits learners by providing access to:", options: ["Heavier bags", "Vast library of online resources", "No exams", "Less social interaction"], correct: "Vast library of online resources", rationale: "Research and ebooks are available instantly online." },
+            { q: "Which technology identifies items at a supermarket checkout?", options: ["Supercomputers", "POS (Point of Sale) system", "Mainframes", "Analog clocks"], correct: "POS (Point of Sale) system", rationale: "POS systems use barcodes to identify products and process sales." },
+            { q: "What does MICR stand for in banking?", options: ["Magnetic Ink Character Reader", "Mobile Information Center", "Manual Internal Check Router", "Main Ink Code Reader"], correct: "Magnetic Ink Character Reader", rationale: "MICR is used to read magnetic ink on bank checks." },
+            { q: "In Science, 'Simulation' helps researchers to:", options: ["Play games", "Model complex phenomena safely", "Replace humans", "Delete data"], correct: "Model complex phenomena safely", rationale: "Simulation creates digital environments for testing experiments." },
+            { q: "What does CAD stand for?", options: ["Computer Aided Design", "Calculate All Data", "Central Access", "Complex Analog"], correct: "Computer Aided Design", rationale: "CAD is for precision 2D/3D engineering designs." },
+            { q: "Which tool allows voice calls over the internet?", options: ["PSTN", "VoIP", "Fax", "AM Radio"], correct: "VoIP", rationale: "VoIP (Voice over IP) sends voice data through the internet." },
+            { q: "School administration uses ICT to automate:", options: ["Classroom cleaning", "Grading and scheduling", "Desk repairs", "Manual filing"], correct: "Grading and scheduling", rationale: "Databases manage student records and timetables efficiently." },
+            { q: "Biometric authentication uses:", options: ["Passwords only", "Physical traits like fingerprints", "Metal keys", "Magnetic tapes"], correct: "Physical traits like fingerprints", rationale: "Biometrics provide high-security identification." },
+            { q: "Cloud computing allows business data to be accessed:", options: ["Only in the office", "From any location via internet", "Once per day", "By one person only"], correct: "From any location via internet", rationale: "Cloud storage enables remote work and collaboration." },
+            { q: "What is a 'special-purpose computer'?", options: ["Does any task", "Designed for one specific task", "Always a laptop", "Does not use electricity"], correct: "Designed for one specific task", rationale: "Devices like calculators or washing machine controllers are special-purpose." },
+            { q: "In the health sector, 'Remote Monitoring' means:", options: ["Watching TV", "Checking patient vitals from home", "Selling medicine", "Remote cleaning"], correct: "Checking patient vitals from home", rationale: "Sensors send patient health data directly to doctors." },
+            { q: "E-government portals improve:", options: ["Secrecy", "Transparency and access", "Internet speed", "Hardware costs"], correct: "Transparency and access", rationale: "Portals allow citizens to interact with government agencies easily." },
+            { q: "In banking, an 'electronic funds transfer' (EFT) is:", options: ["Moving physical cash", "Moving money digitally between accounts", "Closing an account", "Printing a statement"], correct: "Moving money digitally between accounts", rationale: "EFT is the digital movement of money across networks." },
+            { q: "Why is ICT important for multimedia production?", options: ["It uses less paper", "It enables video editing and animation", "It replaces the actors", "It makes cameras smaller"], correct: "It enables video editing and animation", rationale: "ICT tools are used for editing, effects, and sound mixing." },
+            { q: "What is an 'Embedded computer'?", options: ["A PC on a desk", "A computer inside another device (like a microwave)", "A giant mainframe", "A broken tablet"], correct: "A computer inside another device (like a microwave)", rationale: "Embedded systems control specific functions within a larger device." },
+            { q: "Modern ICT communication allows for:", options: ["More travel", "Real-time collaboration worldwide", "Higher costs", "Slower data sharing"], correct: "Real-time collaboration worldwide", rationale: "Teams can work together instantly regardless of distance." }
         ];
 
-        let cur = 0, score = 0, timerVal = 0, timerInt, history = [];
-        const loginS = document.getElementById('loginSection'), quizS = document.getElementById('quizSection'), resS = document.getElementById('resultSection');
-        const startB = document.getElementById('startBtn'), stuN = document.getElementById('stuName'), stuI = document.getElementById('stuId');
+        let cur = 0, score = 0, timerVal = 0, timerInt, history = [], attempts = 0;
 
-        function validate() { startB.disabled = !(stuN.value.trim() && stuI.value.trim()); }
+        const stuN = document.getElementById('stuName'), stuI = document.getElementById('stuId'), startB = document.getElementById('startBtn');
+
+        const validate = () => { startB.disabled = !(stuN.value.trim() && stuI.value.trim()); };
         stuN.oninput = validate; stuI.oninput = validate;
 
         startB.onclick = () => {
-            loginS.classList.add('hidden');
-            quizS.classList.remove('hidden');
+            attempts++;
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('quizSection').classList.remove('hidden');
+            timerVal = 0;
             startTimer();
             showQuestion();
         };
 
         function startTimer() {
+            clearInterval(timerInt); // Clear any existing timer
             timerInt = setInterval(() => {
                 timerVal++;
                 let m = Math.floor(timerVal/60).toString().padStart(2,'0'), s = (timerVal%60).toString().padStart(2,'0');
-                document.getElementById('timer').innerText = `${m}:${s}`;
+                document.getElementById('timerDisplay').innerText = `${m}:${s}`;
             }, 1000);
         }
 
         function showQuestion() {
-            const qData = QUESTIONS[cur];
+            const q = QUESTIONS[cur];
             document.getElementById('nextBtn').disabled = true;
-            document.getElementById('progress').innerText = `Question ${cur + 1} of ${QUESTIONS.length}`;
-            document.getElementById('questionText').innerText = qData.q;
-            
+            document.getElementById('progressText').innerText = `Question ${cur + 1} of ${QUESTIONS.length}`;
+            document.getElementById('qText').innerText = q.q;
             const grid = document.getElementById('optionsGrid');
             grid.innerHTML = '';
-            // Shuffle options
-            [...qData.options].sort(() => Math.random() - 0.5).forEach(opt => {
+            [...q.options].sort(() => Math.random() - 0.5).forEach(o => {
                 const b = document.createElement('div');
-                b.className = "option-btn p-5 bg-white rounded-2xl font-bold text-slate-700 border-2 border-slate-100 hover:border-indigo-300";
-                b.innerText = opt;
+                b.className = "p-5 bg-white border-2 border-slate-100 rounded-3xl font-bold text-slate-700 cursor-pointer hover:border-indigo-200 transition";
+                b.innerText = o;
                 b.onclick = () => {
                     Array.from(grid.children).forEach(c => c.classList.remove('selected'));
                     b.classList.add('selected');
@@ -270,44 +174,56 @@
         document.getElementById('nextBtn').onclick = () => {
             const sel = document.querySelector('.selected').innerText;
             const q = QUESTIONS[cur];
-            const isCorrect = (sel === q.correct);
-            if(isCorrect) score++;
-            history.push({ q: q.q, user: sel, correct: q.correct, rationale: q.rationale, isCorrect });
-
+            const isC = (sel === q.correct);
+            if(isC) score++;
+            history.push({ q: q.q, u: sel, c: q.correct, r: q.rationale, isC });
             cur++;
-            if(cur < QUESTIONS.length) showQuestion(); else endQuiz();
+            if(cur < QUESTIONS.length) showQuestion(); else finish();
         };
 
-        function endQuiz() {
+        function finish() {
             clearInterval(timerInt);
-            quizS.classList.add('hidden');
-            resS.classList.remove('hidden');
+            document.getElementById('quizSection').classList.add('hidden');
+            document.getElementById('resultSection').classList.remove('hidden');
+            
             const pct = Math.round((score/QUESTIONS.length)*100);
-            document.getElementById('finalScore').innerText = pct;
-            document.getElementById('resName').innerText = stuN.value;
-            document.getElementById('resId').innerText = stuI.value;
-            
-            const gradeEl = document.getElementById('grade');
-            gradeEl.innerText = pct >= 50 ? "PASSED - Well Done" : "FAIL - Study More";
-            gradeEl.className = pct >= 50 ? "font-bold text-2xl uppercase mt-4 text-green-600" : "font-bold text-2xl uppercase mt-4 text-red-600";
-            
+            document.getElementById('finalPercent').innerText = pct;
+            document.getElementById('rawScore').innerText = `${score} / ${QUESTIONS.length}`;
+            document.getElementById('resNameDisplay').innerText = stuN.value;
+            document.getElementById('resIdDisplay').innerText = stuI.value;
+            document.getElementById('resAttempt').innerText = attempts;
+            document.getElementById('resTime').innerText = document.getElementById('timerDisplay').innerText;
+
+            const pf = document.getElementById('passFail');
+            pf.innerText = pct >= 50 ? "RESULT: PASSED" : "RESULT: FAILED";
+            pf.className = `mt-6 px-10 py-3 rounded-full font-black text-xl uppercase tracking-widest ${pct >= 50 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`;
+
             const list = document.getElementById('reviewList');
+            list.innerHTML = '';
             history.forEach((h, i) => {
                 const d = document.createElement('div');
-                d.className = `p-8 rounded-3xl border-l-[12px] ${h.isCorrect ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50'}`;
+                d.className = `p-6 rounded-[30px] border-l-[10px] ${h.isC ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50'}`;
                 d.innerHTML = `
-                    <p class="font-black text-slate-800 text-lg">${i+1}. ${h.q}</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                        <p class="text-sm"><b>Student Choice:</b> ${h.user} ${h.isCorrect ? '✅' : '❌'}</p>
-                        ${!h.isCorrect ? `<p class="text-sm text-green-700"><b>Correct Answer:</b> ${h.correct}</p>` : ''}
-                    </div>
-                    <div class="mt-6 p-5 bg-white/80 rounded-2xl text-xs text-slate-600 border border-slate-200 shadow-sm">
-                        <b class="text-indigo-600 uppercase tracking-widest block mb-2">Mr. Katongo's Rationale:</b>
-                        ${h.rationale}
+                    <p class="font-black text-slate-800">${i+1}. ${h.q}</p>
+                    <p class="text-sm mt-2"><b>Answered:</b> ${h.u} ${h.isC ? '✅' : '❌'}</p>
+                    ${!h.isC ? `<p class="text-sm text-green-700"><b>Correct:</b> ${h.c}</p>` : ''}
+                    <div class="mt-4 p-4 bg-white/60 rounded-2xl text-xs text-slate-600 border border-slate-100 italic">
+                        <b class="text-indigo-600 block mb-1">Mr. Katongo's Rationale:</b>${h.r}
                     </div>
                 `;
                 list.appendChild(d);
             });
+        }
+
+        function restartQuiz() {
+            attempts++; // Increment the attempt counter here
+            cur = 0; score = 0; history = [];
+            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('quizSection').classList.remove('hidden');
+            timerVal = 0;
+            document.getElementById('timerDisplay').innerText = "00:00";
+            startTimer();
+            showQuestion();
         }
     </script>
 </body>
